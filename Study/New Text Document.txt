@@ -1,0 +1,196 @@
+1)From the below list, find the unique triplets combination of addition is zero
+
+[1,-1,0,2,3,1] 
+
+a+b+c =0 
+
+lst=[1,-1,0,2,3,1] 
+
+for i in range(len(lst)):
+	for j in range(i+1,len(lst)):
+		for k in range(j+1,len(lst)):
+			if lst[i]+lst[j]+lst[k]==0:
+				print (lst[i],lst[j],lst[k])
+
+
+2)We have 2 inputs.
+one is list and another is number(target) as below;
+ex.
+input_list = [3, -2, 0, 2, 2, 1]
+larget = 4
+We need a function which takes these 2 inputs and return a list
+which has all permutaion combinations for elements whose addition is
+equal to target number.
+
+ex output
+[[3, 1], [2, 2], [3, 0, 1], [0, 2, 2], [3, -2, 2, 1],
+[3, -2, 2, 1], [3, -2, 0, 2, 1], [3, -2, 0, 2, 1]
+]
+
+			
+import itertools
+def subset(lst):
+    output=[]
+    for i in range(1,len(lst)+1):
+        k=list(itertools.combinations(lst,i))
+        for comb in k:
+            output.append(list(comb))
+    return output
+
+def result(lst,t):
+	sub_lst=subset(lst)
+	for i in sub_lst:
+		sum=0
+		for k in i:
+			sum+=k
+		if sum==t:
+			print(i)
+
+input_list = [3, -2, 0, 2, 2, 1]
+target = 4
+result(input_list,target)
+ 
+
+
+
+
+3)Given a string "needlle" and substring "ll", find the first occurrence of "ll" in string, If no occurrences return -1
+script should satisfy the following conditions:
+   If substr is NULL it should return -1
+   If string is NULL it should return -1
+   If substr is occurring multiple times in string , return the index of first occurrence.
+
+
+4)Balanced bracketing
+.         Write to code to check balanced brackets.  Eg. []{}({}[]) – should be valid / [{}({}[]))) – Should be in valid
+
+s="[]{}({()[]})"
+
+
+def check(s):
+
+    o=['[','{','(']
+
+    c=[']','}',')']
+
+    stack=[]
+
+    flag=0
+
+    for i in s:
+
+        if i in o:
+
+            stack.append(i)
+
+        else:
+
+            temp=stack.pop()
+
+            idx=o.index(temp)
+
+            ch=c[idx]
+
+            if ch!=i:
+
+                print("invalid")
+
+                flag=1
+
+                break
+
+    if flag==0:
+
+        print ("valid")
+
+check(s)
+
+
+
+
+5)have a dictionary with some keys and values and pass null string for some of the keys. the dictionary can also have dict of another dict. We need to pop out all the keys with null values
+my_dict = {'a': 123, 'b': {'c' :[1, 4, 5, 7], 'k': (1, 3 ,5),
+                              },
+              'n': {"p": '', 'x': 56, 'find': ''},
+              'url': '',
+             }
+We need to get final dictonay as below:
+my_dict = {'a': 123, 'b': {'c' :[1, 4, 5, 7], 'k': (1, 3 ,5),
+                              },
+              'n': {'x': 56,},
+             }
+
+
+def rm_null(d):
+    
+	temp_d={}
+
+	for i,j in d.items():
+        
+		if type(j) != dict and j!='':
+            
+			temp_d[i]=d[i]
+        
+		elif(type(j) == dict):
+                
+			temp_j=rm_null(j)
+                
+			temp_d[i]=temp_j
+    
+	return temp_d
+result=rm_null(my_dict)
+
+print(result)
+
+
+6)String Compression and comparison:  Given a string please find the no of repeated characters and show it in count: aaaaaabbbb  ….o/p : a6b4…
+s="aaaaabbbcccd"
+
+out=""
+
+count=1
+
+for i in range(len(s)-1):
+
+    if s[i]==s[i+1]:
+
+        count+=1
+
+    else:
+
+        out+=s[i]+str(count)
+
+        count=1
+
+        
+out+=s[-1]+str(count)
+
+print(out)
+
+7)Find all the subsets of a given set.
+
+Input: 
+S = {1, 2, 3, 4}
+
+===code====
+s=[1,2,3,4]
+import itertools
+def subset(lst):
+    output=[]
+    for i in range(1,len(lst)+1):
+        k=list(itertools.combinations(lst,i))
+        for comb in k:
+            output.append(list(comb))
+    return output
+        
+print(subset(s))
+
+		
+=============================
+Output:
+[1] , [2], [3], [4], 
+[1,2], [1,3],[1,4], [2,3], [2,4], [3,4], 
+[1,2,3], [1,2,4], [1,3,4], [2,3,4], [1,2,3,4]
+
+8)Find the sum of consequences no. if the sum matches the target, get the index of that element
+Input : [1, 5, 4, 9]  , 5
